@@ -12,12 +12,10 @@ CREATE TABLE `users` (
    `Phone_Number` varchar(15) DEFAULT NULL,
    `Is_Admin`  BIT(1),
    `Subscription`  BIT(1),
-   `Subscription_Items` int default null,
-   
    PRIMARY KEY (`User_ID`),
    UNIQUE KEY `Email` (`Email`),
-   UNIQUE KEY `Phone_Number` (`Phone_Number`),
-   FOREIGN KEY(`Subscription_Items`) REFERENCES `products` (`Product_ID`)
+   UNIQUE KEY `Phone_Number` (`Phone_Number`)
+
    )DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
    
     CREATE TABLE `products` (
@@ -25,7 +23,7 @@ CREATE TABLE `users` (
    `Product_Name` varchar(20) NOT NULL,
    `Description` varchar(50) DEFAULT NULL,
    `Category` varchar(10) NOT NULL,
-   `Available_Quantity` int NOT NULL,
+   `Available_Quantity` int DEFAULT NULL,
    `Price` long NOT NULL,
    
    PRIMARY KEY (`Product_ID`),
@@ -52,16 +50,21 @@ CREATE TABLE `users` (
    `Product_ID` int NOT NULL,
    `Quantity` timestamp NOT NULL DEFAULT (CURRENT_TIMESTAMP + 3),
    `Order_ID` INT NOT NULL,
+   `User_ID` INT DEFAULT NULL,
    PRIMARY KEY (`Rand_ID`),
    FOREIGN KEY(`Product_ID`) REFERENCES `products` (`Product_ID`),
-   FOREIGN KEY(`Order_ID`) REFERENCES `orders` (`Order_ID`)
+   FOREIGN KEY(`Order_ID`) REFERENCES `orders` (`Order_ID`),
+   FOREIGN KEY(`User_ID`) REFERENCES `users` (`User_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-insert into users values( '1','jagadeesh','viswanadhuni', 
-'jagadeeshbose567@gmail.com','laxmi@2662','+1', 5145726116 ,current_timestamp(), 1 , 0 );
-
-insert into products values( '1' ,'half_kilo_apples','apples at cheap', 
-'fruits', 1000 , 4.05); 
+create table `subscription table`(
+`Prime_Key` int not null auto_increment,
+`Subscription_Period` varchar(20) DEFAULT NULL,
+`User_ID` INT DEFAULT NULL,
+`isActive` boolean DEFAULT false,
+primary key(`Prime_Key`),
+FOREIGN KEY(`User_ID`) REFERENCES `users` (`User_ID`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 select * from orders;
