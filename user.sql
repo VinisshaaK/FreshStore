@@ -12,9 +12,12 @@ CREATE TABLE `users` (
    `Phone_Number` varchar(15) DEFAULT NULL,
    `Is_Admin`  BIT(1),
    `Subscription`  BIT(1),
+   `Subscription_Items` int default null,
+   
    PRIMARY KEY (`User_ID`),
    UNIQUE KEY `Email` (`Email`),
-   UNIQUE KEY `Phone_Number` (`Phone_Number`)
+   UNIQUE KEY `Phone_Number` (`Phone_Number`),
+   FOREIGN KEY(`Subscription_Items`) REFERENCES `products` (`Product_ID`)
    )DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
    
     CREATE TABLE `products` (
