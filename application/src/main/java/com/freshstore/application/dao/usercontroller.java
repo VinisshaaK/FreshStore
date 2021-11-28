@@ -17,7 +17,7 @@ import com.freshstore.application.repository.UserRepository;
 
 
 @RestController
-@CrossOrigin(origins="https://localhost:4200")
+@CrossOrigin(origins="http://localhost:4200")
 @RequestMapping(path="users")
 public class usercontroller {
  
@@ -47,6 +47,12 @@ public class usercontroller {
 	{
 		 userRepository.delete(users);
 		return true;
+	}
+	
+	@GetMapping("/test")
+	public String testMethod() {
+		System.out.println("Hello The request came");
+		return "dselo I am here";
 	}
 	}
 
